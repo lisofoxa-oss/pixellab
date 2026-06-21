@@ -308,7 +308,7 @@ function updateFilterParams() {
     case 'brightness': fp.brightness = parseInt(slider.value); slider.max = 200; slider.value = fp.brightness; val.textContent = fp.brightness + '%'; break;
     case 'contrast': fp.contrast = parseInt(slider.value); slider.max = 200; slider.value = fp.contrast; val.textContent = fp.contrast + '%'; break;
     case 'saturate': fp.saturate = parseInt(slider.value); slider.max = 300; slider.value = fp.saturate; val.textContent = fp.saturate + '%'; break;
-    default: slider.max = 10; slider.value = 5; val.textContent = '5'; break;
+    default: slider.max = 10; slider.value = parseInt(slider.value) || 5; val.textContent = slider.value; break;
   }
   if (state.filter === 'none') slider.disabled = true;
   else slider.disabled = false;
