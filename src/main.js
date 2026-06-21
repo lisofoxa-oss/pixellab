@@ -317,8 +317,6 @@ function updateFilterParams() {
 
 function applyFilter() {
   if (!state.originalData) return;
-  canvas.width = state.width;
-  canvas.height = state.height;
   const imgData = ctx.getImageData(0, 0, state.width, state.height);
   const d = imgData.data;
 
