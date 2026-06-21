@@ -1,0 +1,18 @@
+{
+  "name": "pixellab",
+  "version": "1.0.0",
+  "description": "Privacy-first image toolkit — convert, compress, resize, filters, color palette. Everything runs in your browser.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "keywords": ["image-tool", "converter", "privacy", "offline"],
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^8.0.16",
+    "vitest": "^4.1.9"
+  }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelLab — Image Toolkit</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="header">
+      <h1>🎨 PixelLab</h1>
+      <p class="tagline">Image tools. 100% in your browser. Nothing uploaded.</p>
+    </header>
+    <main id="main">
+      <!-- Drop zone -->
+      <div id="dropzone" class="dropzone">
+        <div class="dropzone-content">
+          <div class="dropzone-icon">🖼️</div>
+          <p class="dropzone-title">Drop an image here</p>
+          <p class="dropzone-sub">or click to browse · PNG, JPEG, WebP, BMP, GIF</p>
+          <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,image/bmp,image/gif" style="display:none" />
+        </div>
+      </div>
+
+      <!-- Toolbar (hidden until image loaded) -->
+      <div id="toolbar" style="display:none">
+        <button class="tool-btn active" data-tool="convert">🔄 Convert</button>
+        <button class="tool-btn" data-tool="compress">📦 Compress</button>
+        <button class="tool-btn" data-tool="resize">📐 Resize</button>
+        <button class="tool-btn" data-tool="filters">🎨 Filters</button>
+        <button class="tool-btn" data-tool="palette">🎭 Palette</button>
+      </div>
+
+      <!-- Editor area -->
+      <div id="editor" style="display:none">
+        <div class="editor-main">
+          <div class="preview-panel">
+            <div class="panel-header">
+              <span id="file-info">No image</span>
+              <span id="file-size"></span>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="preview"></canvas>
+            </div>
+          </div>
+          <div class="controls-panel" id="controls-panel">
+            <!-- Dynamic controls render here -->
+          </div>
+        </div>
+        <div class="action-bar" id="action-bar">
+          <button class="btn btn-primary" id="btn-download">💾 Download</button>
+          <button class="btn btn-secondary" id="btn-reset">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Palette output -->
+      <div id="palette-output" style="display:none">
+        <div class="panel-header">Color Palette</div>
+        <div id="palette-grid"></div>
+        <div class="btn-row" style="margin-top:8px">
+          <button class="btn btn-sm btn-secondary" id="palette-copy">Copy as CSS</button>
+        </div>
+      </div>
+    </main>
+    <footer id="footer">
+      <p>🔒 All processing is done locally. Your images never leave your device.</p>
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
