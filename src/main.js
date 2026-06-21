@@ -317,7 +317,11 @@ function updateFilterParams() {
 
 function applyFilter() {
   if (!state.originalData) return;
-  const imgData = ctx.getImageData(0, 0, state.width, state.height);
+  const imgData = new ImageData(
+    new Uint8ClampedArray(state.originalData.data),
+    state.width,
+    state.height
+  );
   const d = imgData.data;
 
   if (state.filter === 'none') {
@@ -376,11 +380,10 @@ function applyFilter() {
       }
       break;
     case 'blur':
-      // Simple box blur
       const radius = Math.min(10, Math.round(intensity));
       if (radius > 0) {
         const w = state.width, h = state.height;
-        const src = ctx.getImageData(0, 0, w, h).data;
+        const src = state.originalData.data;
         for (let y = 0; y < h; y++) {
           for (let x = 0; x < w; x++) {
             let r = 0, g = 0, b = 0, count = 0;
@@ -397,7 +400,6 @@ function applyFilter() {
           }
         }
         state.filterParams.blur = intensity;
-        fpVal.textContent = intensity;
       }
       break;
   }
@@ -408,14 +410,9 @@ function applyFilter() {
 
 // ─── Palette ────────────────────────────────────────────
 function extractPalette() {
+  if (!state.originalData) return;
   const w = state.width, h = state.height;
-  const temp = document.createElement('canvas');
-  temp.width = w; temp.height = h;
-  const tctx = temp.getContext('2d');
-  tctx.drawImage(canvas, 0, 0);
-
-  // Sample pixels (use a grid to reduce)
-  const pixelData = tctx.getImageData(0, 0, w, h).data;
+  const pixelData = state.originalData.data;
   const colors = [];
   const step = Math.max(1, Math.floor(Math.sqrt((w * h) / 2000)));
   for (let y = 0; y < h; y += step) {
