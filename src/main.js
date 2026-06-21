@@ -289,7 +289,6 @@ function renderFilters() {
   const fpVal = controlsPanel.querySelector('#fp-val');
 
   fpSlider.addEventListener('input', () => {
-    fpVal.textContent = fpSlider.value;
     updateFilterParams();
     applyFilter();
   });
@@ -305,10 +304,10 @@ function updateFilterParams() {
   if (!slider) return;
 
   switch (state.filter) {
-    case 'blur': slider.max = 20; slider.value = Math.min(fp.blur, 20); val.textContent = fp.blur; break;
-    case 'brightness': slider.max = 200; slider.value = fp.brightness; val.textContent = fp.brightness + '%'; break;
-    case 'contrast': slider.max = 200; slider.value = fp.contrast; val.textContent = fp.contrast + '%'; break;
-    case 'saturate': slider.max = 300; slider.value = fp.saturate; val.textContent = fp.saturate + '%'; break;
+    case 'blur': fp.blur = parseInt(slider.value); slider.max = 20; slider.value = Math.min(fp.blur, 20); val.textContent = fp.blur; break;
+    case 'brightness': fp.brightness = parseInt(slider.value); slider.max = 200; slider.value = fp.brightness; val.textContent = fp.brightness + '%'; break;
+    case 'contrast': fp.contrast = parseInt(slider.value); slider.max = 200; slider.value = fp.contrast; val.textContent = fp.contrast + '%'; break;
+    case 'saturate': fp.saturate = parseInt(slider.value); slider.max = 300; slider.value = fp.saturate; val.textContent = fp.saturate + '%'; break;
     default: slider.max = 10; slider.value = 5; val.textContent = '5'; break;
   }
   if (state.filter === 'none') slider.disabled = true;
@@ -440,6 +439,7 @@ function extractPalette() {
 }
 
 function showPalette() {
+  controlsPanel.innerHTML = '';
   if (!state.palette || state.palette.length === 0) extractPalette();
   paletteOutput.style.display = 'block';
   paletteGrid.innerHTML = state.palette.map(c =>
